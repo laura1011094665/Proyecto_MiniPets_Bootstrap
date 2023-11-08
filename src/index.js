@@ -53,15 +53,23 @@ k
         </div>
           <img class='img rounded' src='https://www.eltiempo.com/files/article_main_1200/uploads/2019/12/13/5df4525ec3073.jpeg'>
       </div>
-      <div class='w-50 h-50 m-3 rounded  '>
-        <h1 class='m-2'>Nosotros...</h1>
-          <p class='m-3 w-75'>nosotros consistimos en una casa de adopcion, en la cual podras conocer varios tipos de perros y gatos, delos cuales te puedes enamorar. <br>
-          tu podras venir a nuestro punto de encuentro donde podras conocerlos o ta,bien podras registrarte desde aqui y poder ver el catalogo y la informacion de cada perro o gatos.</p>
-        <div class='w-100 d-flex justify-content-center align-items-center'>
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3977.1074580771046!2d-74.15297952424207!3d4.574713942735242!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9f1661def41d%3A0x31bb378e0c4aa71f!2sCra.%2043%20%2358c24%2C%20Bogot%C3%A1!5e0!3m2!1ses-419!2sco!4v1699161492362!5m2!1ses-419!2sco" 
-          class='w-50 h-25 rounded m-3' allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <div class='d-flex justify-content-center aling-items-center'>
+        <div class='w-50 h-75 border border-left m-3 rounded  '>
+          <h1 class='m-2'>Nosotros...</h1>
+            <p class='m-3 w-75'>nosotros consistimos en una casa de adopcion, en la cual podras conocer varios tipos de perros y gatos, delos cuales te puedes enamorar. <br>
+            tu podras venir a nuestro punto de encuentro donde podras conocerlos o ta,bien podras registrarte desde aqui y poder ver el catalogo y la informacion de cada perro o gatos.</p>
+          <div class='w-100 d-flex justify-content-center align-items-center'>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3977.1074580771046!2d-74.15297952424207!3d4.574713942735242!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9f1661def41d%3A0x31bb378e0c4aa71f!2sCra.%2043%20%2358c24%2C%20Bogot%C3%A1!5e0!3m2!1ses-419!2sco!4v1699161492362!5m2!1ses-419!2sco" 
+            class='w-50 h-25 rounded m-3' allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
         </div>
+        <div class='w-50 h-50 border border-left m-3 rounded  '>
+          <h1 class='m-2'>Nuestro Logo.</h1>
+        <div class='w-100 d-flex justify-content-center align-items-center'>
+          <img class='w-50 rounded m-2' src='https://www.zonadocs.mx/wp-content/uploads/2020/12/Disenos-portada-14-1068x901.png'>
+          </div>
       </div>
+    </div>
       `
       this.requestUpdate();
 
@@ -157,18 +165,40 @@ iniciarSesion() {
   mascotasUsu(y) {
     if (y === 2) {
       this.info = html`
-        <table class='posicion table table-striped table-bordered w-100'>
-          <thead>
-            <tr>
-              <th>Identificacion del Equipo</th>
-              <th># integrantes</th>
-              <th>Estado del equipo</th>
-              <th>Campaña del equipo</th>
-            </tr>
-          </thead>
-          <tbody>
-          </tbody>
-        </table>
+      <div class='color1 d-flex justify-content-center align-items-center'>
+        <div class='content2 rounded'>
+        
+        <h1 class='m-3 '> Nuestras Mascotas.. </h1>
+          <div class='m-3 d-flex '>
+
+            <div class="card m-3" style="width: 18rem;">
+              <div class="card-body">
+                <h5 class="card-title">Perro Jose</h5>
+                <img src='https://www.hvcruzcubierta.com/wp-content/uploads/2013/09/espina_pata.jpg' class='w-75'>
+                <p class="card-text">Este perrito fue rescatado de una casa abusiba en donde fue maltratado y le mocharon una pata</p>
+              </div>
+                <ul class="list-group list-group-flush">
+                <li class="list-group-item">perrito</li>
+                <li class="list-group-item">pincher</li>
+                <li class="list-group-item">1 mes de reavilitacion</li>
+              </ul>
+          </div>
+          <div class="card m-3" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title">Perros Salchicha</h5>
+            <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLL5sj92tBEIITtAYiSDSLPkxWTrgEqvr1dQ&usqp=CAU' class='w-75'>
+            <p class="card-text">Estos perritos son unos gordos bachicha que rescatamos a la orilla del mar desnutridos, 
+              porque los abandono una abandonica usan usan y tiran, es lo peor de todo
+            </p>
+          </div>
+            <ul class="list-group list-group-flush">
+            <li class="list-group-item">perritos</li>
+            <li class="list-group-item">salchicha</li>
+            <li class="list-group-item">1 mes de reavilitacion</li>
+          </ul>
+      </div>
+        </div>
+      </div>
       `;
       this.requestUpdate();
     }
@@ -228,7 +258,7 @@ iniciarSesion() {
     </div>
         <div class="mt-3 mb-2 m-3" style="border: 1px solid #ccc; padding: 10px;">
                 <div class="bg-color-secondary1 d-flex justify-content-center  align-items-center h-100">
-                    <div class="border-dark col w-50">
+                    <div class="border-dark col w-100">
                     ${this.info}
                     </div>
                 </div>
@@ -238,4 +268,3 @@ iniciarSesion() {
   }
 }
 customElements.define("index-element", IndexElement);
-

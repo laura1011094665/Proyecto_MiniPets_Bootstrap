@@ -1,11 +1,22 @@
 import { LitElement, html } from "lit-element";
-import index_styles from "../index_styles";
+import index_styles from "../index_styles"  
 
 export class MenuAdmin extends LitElement{
   //ESTILOS
     static get styles(){
         return[index_styles]
     }
+    abrirModal() {
+
+      const miModal = this.shadowRoot.querySelector("#miModal");
+      miModal.style.display = "block";
+    }
+  
+    cerrarModal() {
+      const miModal = this.shadowRoot.querySelector("#miModal");
+      miModal.style.display = "none";
+    }
+
     //TIPOS DE DATOS
     constructor(){
       super();
@@ -34,6 +45,29 @@ export class MenuAdmin extends LitElement{
     };
   }
 
+  
+
+}
+
+
+function guardarDatos() {
+  localStorage.nombre = document.getElementById("nombre").value,
+  localStorage.apellido = document.getElementById("apellido").value,
+  localStorage.telefono = document.getElementById("telefono").value,
+  localStorage.direccion = document.getElementById("direccion").value,
+  localStorage.password = document.getElementById("password").value,
+  localStorage.identificacion = document.getElementById("identificacion").value,
+  localStorage.email = document.getElementById("email").value
+};
+
+function recuperarDatos() {
+  if ((localStorage.nombre != undefined) && (localStorage.password != undefined)) {
+      document.getElementById("datos").innerHTML = "Nombre: " + localStorage.nombre + " Password: " + localStorage.password;
+  } else {
+      document.getElementById("datos").innerHTML = "No has introducido tu nombre y tu password";
+  }
+}
+
 
     //PAGINAS DE MENU
     bienvenido(y){
@@ -50,6 +84,11 @@ export class MenuAdmin extends LitElement{
         this.requestUpdate();
   
       }
+    }
+    connectedCallback() {
+      super.connectedCallback();
+      // Llama a la función informacion(0) cuando el componente se conecta al DOM.
+      this.bienvenido(0);
     }
     //comienzo de crud de usu
 
@@ -68,7 +107,7 @@ export class MenuAdmin extends LitElement{
         this.requestUpdate();
       }
     }
-
+  
     //consultar usuario
     consultarUsu(y) {
     if (y === 2) {
@@ -98,22 +137,49 @@ export class MenuAdmin extends LitElement{
                 <td>${usuario.nombre}</td>
                 <td>${usuario.apellido}</td>
                 <td>${usuario.telefono}</td>
-                <td>${usuario.email}</td>
+                <td>${usuario.correo}</td>
                 <td>${usuario.direccion}</td>
-                <td><button @click="${() => this.actualizarUsu(2)}"><i class="fa-solid fa-file-pen"></i></button></td>
-                <td><i class="fa-solid fa-trash"></i></td>
-              </tr>
-            `
-        )}
-        </tbody>
-      </table>
+                <td><button @click="${() => this.actualizarFormUsu()}" class="w-100 mt-5  border buton p-2 rounded border-10"> Actualizar</button>
+                <div id="miModal" class="modal">
+                  <div class="modal-dialog">
+                    <div class="modal-content h-50 d-flex justify-content-center aling-item-center">
+                      <button class='color  bg-transparent border-0' @click="${this.cerrarModal}">X</button>
+                        <div>
+                          <label class='font'>Numero de Identificacion:</label><br>
+                          <input class='w-100 rounded  bg-none border' id='actualizarIdentifi' .value='${usuario.identificacion}' type="text"><br><br>
+                          <label class='font'>Nombres:</label><br>
+                          <input class='w-100 rounded  bg-none border' id='actualizarNom' .value='${usuario.nombre}' type="text"><br><br>
+                          <label class='font'>Apellidos:</label><br>
+                          <input class='w-100 rounded  bg-none border' id='actualizarApell' .value='${usuario.apellido}' ><br><br>
+                          <label class='font'>Telefono:</label><br>
+                          <input class='w-100 rounded  bg-none border'id='actualizarTel' .value='${usuario.telefono}' type="text" ><br> <br>
+                          <label class='font'>Correo:</label><br>
+                          <input class='w-100 rounded  bg-none border'id='actualizarEmail' .value='${usuario.email}' type="text"><br><br>
+                          <label class='font'>Direccion:</label><br> 
+                          <input class='w-100 rounded  bg-none border'id='actualizardirec' .value='${usuario.direccion}' type="text" ><br><br>
+                          <label class='font'>Contraseña:</label><br> 
+                          <input class='w-100 rounded  bg-none border'id='actualizarPass' .value='${usuario.password}' type="text" ><br><br>
+                          <button type="button" class="btn btn-dark d-flex m-1 font" @click="${() => this.actualizarUsuario(usuario.identificacion)}">Actualizar  <i class="fas fa-plus fa-beat-fade"></i></button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  </td>
+                  <td><i class="fa-solid fa-trash" @click="${() => this.eliminarUsu()}"></i></td>
+                  </tr>`
+                  )} 
+                </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
         </div>
-        </div>
-    </div>
+      </div>
       `;
       this.requestUpdate();
     }
   }
+
   //registro del usuario por el administrador
   registrarUsu(y) {
     if (y === 2) {
@@ -179,80 +245,102 @@ export class MenuAdmin extends LitElement{
     }
   }
   //actualizar usuario
-  actualizarUsuario() {
-    if (this.usuarioAEditar) {
-      this.usuarioAEditar.nombre = this.nombre;
-      this.usuarioAEditar.apellido = this.apellido;
-      this.usuarioAEditar.telefono = this.telefono;
-      this.usuarioAEditar.email = this.email;
-      this.usuarioAEditar.direccion = this.direccion;
-      this.usuarioAEditar.password = this.password;
-      this.limpiarCampos();
-      this.usuarioAEditar = null;
-      this.mostrarFormularioEdicion = false;
-      this.requestUpdate();
-    } else {
-      console.log('No se proporcionó un usuario válido para actualizar');
-    }
-  }
+  actualizarUsuario(){
+    console.log(usuario)
+    let usuario1= this.usuarios.find((usuario1)=> usuario1.document == usuario)
+    
+    console.log(usuario1);
+    let identificacion = this.shadowRoot.querySelector('#actualizarIdentifi').value
+    let nombre = this.shadowRoot.querySelector('#actualizarNom').value
+    let apellido = this.shadowRoot.querySelector('#actualizarApell').value
+    let telefono= this.shadowRoot.querySelector('#actualizarTel').value
+    let email = this.shadowRoot.querySelector('#actualizarEmail')
+    let direccion = this.shadowRoot.querySelector('#actualizardirec').value
+    let password = this.shadowRoot.querySelector('#actualizarPass').value
 
-  limpiarCampos() {
-    this.nombre = "";
-    this.apellido = "";
-    this.telefono = "";
-    this.email = "";
-    this.direccion = "";
-    this.password = "";
-  }
+    console.log(identificacion,nombre,apellido,telefono,email,direccion, password)
 
-  mostrarFormularioEdicion(usuario) {
-    this.mostrarFormularioEdicion = true;
-    this.usuarioAEditar = usuario;
-    this.identificacion = usuario.identificacion;
-    this.nombre = usuario.nombre;
-    this.apellido = usuario.apellido;
-    this.telefono = usuario.telefono;
-    this.email = usuario.email;
-    this.direccion = usuario.direccion;
-    this.password = usuario.password;
+    usuario1.document= identificacion;
+    usuario1.document= nombre;
+    usuario1.document= apellido;
+    usuario1.document= telefono;
+    usuario1.document= email;
+    usuario1.document= direccion;
+    usuario1.document= password;
+    this.requestUpdate()
+    
   }
-
-  actualizarUsu(y) {
+  actualizarFormUsu(y) {
     if (y === 2) {
-      if (this.mostrarFormularioEdicion) {
-        this.info = html`
-        <div class='color1 d-flex justify-content-center align-items-center'>
-          <div class='content rounded'>
-            <div class='m-3'>
-              <h1 class='mr-3 font'>Editar Usuario</h1>
-              <br>
-              <!-- Campos de entrada con valores preestablecidos -->
-              <label class='font'>Numero de Identificacion:</label><br>
-              <input class='w-100 rounded  bg-none border' .value="${this.identificacion}" @input="${(e) => (this.identificacion = e.target.value)}" type="text"><br><br>
-              <label class='font'>Nombres:</label><br>
-              <input class='w-100 rounded  bg-none border' .value="${this.nombre}" @input="${(e) => (this.nombre = e.target.value)}" type="text"><br><br>
-              <label class='font'>Apellidos:</label><br>
-              <input class='w-100 rounded  bg-none border' type="text" .value="${this.apellido}" @input="${(e) => (this.apellido = e.target.value)}"><br><br>
-              <label class='font'>Telefono:</label><br>
-              <input class='w-100 rounded  bg-none border' .value="${this.telefono}" @input="${(e) => (this.telefono = e.target.value)}" type="text" ><br> <br>
-              <label class='font'>Correo:</label><br>
-              <input class='w-100 rounded  bg-none border' .value="${this.email}" @input="${(e) => (this.email = e.target.value)}" type="text"><br><br>
-              <label class='font'>Direccion:</label><br> 
-              <input class='w-100 rounded  bg-none border' .value="${this.direccion}" @input="${(e) => (this.direccion = e.target.value)}" type="text" ><br><br>
-              <label class='font'>Contraseña:</label><br> 
-              <input class='w-100 rounded  bg-none border' .value="${this.password}" @input="${(e) => (this.password = e.target.value)}" type="text" ><br><br>
-              <!-- Botón para actualizar el usuario -->
-              <button class="btn btn-dark d-flex m-1 font" @click="${() => this.actualizarUsuario()}">Actualizar  <i class="fas fa-plus fa-beat-fade"></i></button>
+      this.info = html`
+      <div class='color1 d-flex justify-content-center align-items-center'>
+        <div class='content rounded'>
+          <div class='m-3'>
+          <h1 class='mr-3 font'>Editar Usuario</h1>
+          <br>
+          <label class='font'>Numero de Identificacion:</label><br>
+          <input class='w-100 rounded  bg-none border' id='actualizarIdentifi' .value='${usuario.identificacion}' type="text"><br><br>
+          <label class='font'>Nombres:</label><br>
+          <input class='w-100 rounded  bg-none border' id='actualizarNom' .value='${usuario.nombre}' type="text"><br><br>
+          <label class='font'>Apellidos:</label><br>
+          <input class='w-100 rounded  bg-none border' id='actualizarApell' .value='${usuario.apellido}' ><br><br>
+          <label class='font'>Telefono:</label><br>
+          <input class='w-100 rounded  bg-none border'id='actualizarTel' .value='${usuario.telefono}' type="text" ><br> <br>
+          <label class='font'>Correo:</label><br>
+          <input class='w-100 rounded  bg-none border'id='actualizarEmail' .value='${usuario.email}' type="text"><br><br>
+          <label class='font'>Direccion:</label><br> 
+          <input class='w-100 rounded  bg-none border'id='actualizardirec' .value='${usuario.direccion}' type="text" ><br><br>
+          <label class='font'>Contraseña:</label><br> 
+          <input class='w-100 rounded  bg-none border'id='actualizarPass' .value='${usuario.password}' type="text" ><br><br>
+          <button type="button" class="btn btn-dark d-flex m-1 font" @click="${() => this.actualizarUsuario(usuario.identificacion)}">Actualizar  <i class="fas fa-plus fa-beat-fade"></i></button>
+        </div>
+        </div>
+      </div>
+      `;
+      this.requestUpdate();
+    }
+}
+
+  //fin crud usu
+  //mascotas
+  mascotasCard(y) {
+    if (y === 2) {
+      this.info = html`
+      <div class='color1 d-flex justify-content-center align-items-center'>
+        <div class='content2 rounded'>
+          <div class='m-3'>
+            <div class="container text-center">
+              <div class="row">
+                <div class="col">
+                  <button type="button" class="btn btn-primary">Registrar</button>
+                </div>
+                <div class="col">
+                </div>
+              </div>
+            </div>
+            <div class="card" style="width: 18rem;">
+              <img src="..." class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">datos</li>
+                <li class="list-group-item">datos</li>
+                <li class="list-group-item">datos</li>
+              </ul>
+              <div class="card-body">
+                <a href="#" class="card-link" style="padding: -30px;">Eliminar</a>
+                <a href="#" class="card-link" style="padding: -30px>Actualizar</a>
+              </div>
             </div>
           </div>
         </div>
-        `;
-      }
+      </div>
+      `;
       this.requestUpdate();
     }
-  }
-
-  //fin crud usu
+}
 
   render() {
     return html`
@@ -269,7 +357,7 @@ export class MenuAdmin extends LitElement{
         <button @click="${() => this.consultarUsu(2)}" class="w-100 mt-5 p-2 border buton rounded border-10">
           <i class="fas fa-user"></i> Usuarios
         </button>
-        <button @click="${() => this.mascotasUsu(2)}" class="w-100 mt-5  border buton p-2 rounded border-10">
+        <button @click="${() => this.mascotasCard(2)}" class="w-100 mt-5  border buton p-2 rounded border-10">
           <i class="fa-solid fa-paw"></i> Mascotas
         </button>
       </div>
@@ -277,9 +365,7 @@ export class MenuAdmin extends LitElement{
         <div class="mt-3 mb-2 m-3" style="border: 1px solid #ccc; padding: 10px;">
                 <div class="bg-color-secondary1 d-flex justify-content-center  align-items-center h-100">
                     <div class="border-dark col w-50">
-
                     ${this.info}
-                    
                     </div>
                 </div>
             </div>
