@@ -30,6 +30,12 @@ export default css `
     height:700px;
     background:#6ab2c475;
 }
+
+.content1{
+    width:900px;
+    height:700px;
+    background:#6ab2c475;
+}
 .btn1{
     position:relative;
     left:40%;
