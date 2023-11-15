@@ -2,7 +2,7 @@ import { LitElement, html } from "lit-element";
 import index_styles from "../index_styles"  
 
 export class MenuAdmin extends LitElement{
-  //ESTILOS
+ 
     static get styles(){
         return[index_styles]
     }
@@ -27,7 +27,6 @@ export class MenuAdmin extends LitElement{
       miModal.style.display = "none";
     }
 
-    //TIPOS DE DATOS
     constructor(){
       super();
       this.usuarios = [];
@@ -91,7 +90,7 @@ export class MenuAdmin extends LitElement{
 }
 
 
-    //PAGINAS DE MENU
+    //paginas del menu
     bienvenido(y){
       if (y===0){
         this.info =html`
