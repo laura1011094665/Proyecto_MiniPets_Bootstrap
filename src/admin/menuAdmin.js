@@ -69,6 +69,7 @@ export class MenuAdmin extends LitElement{
     edadM: { type: Number },
     imagenM: { type: String },
     id: { type: Number },
+    estado: { type: Text },
     }
   }
    guardarDatos() {
@@ -310,7 +311,6 @@ export class MenuAdmin extends LitElement{
       <div class='color1 d-flex justify-content-center align-items-center'>
         <div class='content2 rounded'>
         <button class='button" class="w-100 m-2  border buton p-2 rounded border-10'  @click="${() => this.registrarMascota(2)}" >Registrar</button>
-        <button class='button" class="w-100 m-2  border buton p-2 rounded border-10'  @click="${() => this.registrarMascota(2)}" >Reporte</button>
           <div class='m-3'>
             <div class="container text-center">
               <div class="row"><div class="row">
@@ -513,4 +513,4 @@ eliminarMascota(id) {
     `;
   }
 }
-customElements.define('menu-admin', MenuAdmin)  
+customElements.define('menu-admin', MenuAdmin)
