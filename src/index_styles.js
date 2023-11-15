@@ -23,7 +23,7 @@ export default css `
     right:100%;
 }
 .color1{
-    width:1400px;
+    width:2000px;
 }
 .content{
     width:400px;
@@ -32,7 +32,12 @@ export default css `
 }
 
 .content1{
-    width:900px;
+    width:1300px;
+    height:700px;
+    background:#6ab2c475;
+}
+.content2{
+    width:1000px;
     height:700px;
     background:#6ab2c475;
 }
@@ -136,7 +141,25 @@ export default css `
     color: white;
 }
 
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1;
+  }
 
+  .modal-dialog {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+  }
 
 
 .titleContainer{
@@ -213,4 +236,9 @@ export default css `
     }
 
 }
+
+.alineacion{
+    padding: -30px;
+}
+
 `;
