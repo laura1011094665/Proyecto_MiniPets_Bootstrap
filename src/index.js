@@ -4,6 +4,8 @@ import { MenuAdmin } from "./admin/menuAdmin";
 //import { MenuUsu } from "./usuario/menuUsuario";
 
 export class IndexElement extends LitElement {
+
+
   //estilos
   static get styles() {
     return [index_styles] 
@@ -99,28 +101,28 @@ export class IndexElement extends LitElement {
   }
 //inicio de sesion
 iniciarSesion() {
-    const usuarioValido = this.usuarios.find((usuario) => usuario.email === this.email && usuario.password === this.password);
+  const usuarioValido = this.usuarios.find((usuario) => usuario.email === this.email && usuario.password === this.password);
 
-    if (usuarioValido) {
-      alert("Credenciales incorrectas. Inténtalo de nuevo.");
+  if (usuarioValido) {
+    alert("Credenciales incorrectas. Inténtalo de nuevo.");
+  } else {
+    const dominio = this.email.split('@')[1];
+
+    if (dominio === "minipet.com") {
+      const menuAdmin = new this.MenuAdmin(); // Crea una instancia de MenuAdmin
+      document.body.innerHTML = '';
+      document.body.appendChild(menuAdmin);
+      console.log("Administrador");
+    } else if (dominio === "gmail.com") {
+      const menuUsu = new this.MenuUsu(); // Crea una instancia de MenuUsu
+      document.body.innerHTML = '';
+      document.body.appendChild(menuUsu);
+      console.log("Usuario normal");
     } else {
-      const dominio = this.email.split('@')[1]; // Obtén el dominio del correo
-
-      if (dominio === "minipet.com") {
-        const MenuAdmin = document.createElement('menu-admin');
-        document.body.innerHTML = '';
-        document.body.appendChild(MenuAdmin);
-        console.log("Administrador");
-      } else if (dominio === "gmail.com") {
-        const MenuUsu = document.createElement('menu-usu');
-        document.body.innerHTML = '';
-        document.body.appendChild(MenuUsu);
-        console.log("Usuario normal");
-      } else {
-        alert("Dominio de correo no válido. Inténtalo de nuevo.");
-      }
+      alert("Dominio de correo no válido. Inténtalo de nuevo.");
     }
   }
+}
 
 
   registrarUsu(y) {
